@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/barcode_sample_image"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        android:contentDescription="@string/barcode_sample_preview" />
+
+    <TextView
+        android:id="@+id/barcode_sample_text"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="134255463575476"
+        android:textColor="#3F51B5"
+        android:textSize="28sp"
+        />
+
+</LinearLayout>
