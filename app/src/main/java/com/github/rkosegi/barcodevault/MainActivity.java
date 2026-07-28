@@ -92,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements ItemActionCallbac
     }
 
     private void onImportFilePickResult(Uri uri) {
+        Log.i(TAG, "onImportFilePickResult=" + uri);
+        if (uri == null) {
+            return;
+        }
         final List<Item> toLoad;
         try (InputStream in = getContentResolver().openInputStream(uri)) {
             toLoad = Utils.consumeStreamAs(in, new TypeToken<>() {
