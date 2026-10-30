@@ -25,8 +25,13 @@ import android.widget.Toast;
 
 import com.github.rkosegi.barcodevault.databinding.ShowBarcodeBinding;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.pdf417.encoder.Compaction;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,11 +47,20 @@ public class ShowBarcodeActivity extends AppCompatActivity {
                                         int width,
                                         int height) throws Exception {
 
+
+        final Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+        if (format == BarcodeFormat.PDF_417) {
+            hints.put(EncodeHintType.PDF417_COMPACTION, Compaction.AUTO);
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+            hints.put(EncodeHintType.MARGIN, 2);
+        }
+
         BitMatrix matrix = new MultiFormatWriter().encode(
                 text,
                 format,
                 width,
-                height
+                height,
+                hints
         );
 
         Bitmap bitmap = Bitmap.createBitmap(
@@ -90,10 +104,13 @@ public class ShowBarcodeActivity extends AppCompatActivity {
             int height;
 
             switch (format) {
+                case PDF_417:
+                    width = 552;
+                    height = 116;
+                    break;
                 case QR_CODE:
                 case DATA_MATRIX:
                 case AZTEC:
-                case PDF_417:
                 case MAXICODE:
                     width = 600;
                     height = 600;
